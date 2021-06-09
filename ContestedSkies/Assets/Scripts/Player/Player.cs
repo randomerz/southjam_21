@@ -31,6 +31,9 @@ public class Player : MonoBehaviour
 
     [Header("References")]
     public PaperTimer paperTimer;
+    public Animator playerSpotlightAnimator;
+    public GameObject paperSpotlightPrefab;
+    private Animator paperSpotlightAnimator;
 
     void Awake()
     {
@@ -77,7 +80,11 @@ public class Player : MonoBehaviour
         else if (!hasPaper && value)
         {
             hasPaper = true;
+
             paperTimer.SetActive(false);
+            playerSpotlightAnimator.SetBool("isOn", false);
+            paperSpotlightAnimator.SetBool("isOn", false);
+            TimeManager.ResumeTimeSmooth();
         }
     }
 
@@ -99,11 +106,16 @@ public class Player : MonoBehaviour
         {
             Debug.LogError("Couldn't spawn paper");
         }
-        Debug.Log("Found paper spawn in " + c + " tries!");
+        //Debug.Log("Found paper spawn in " + c + " tries!");
 
         GameObject paperObj = Instantiate(paperPrefab, transform.position, Quaternion.identity);
         paperObj.GetComponent<Paper>().SetTarget(randPos);
-        paperTimer.SetPaper(paperObj);
+        paperTimer.SetPaper(paperObj, paperSpotlightAnimator.gameObject);
+
+        playerSpotlightAnimator.SetBool("isOn", true);
+        paperSpotlightAnimator.SetBool("isOn", true);
+
+        TimeManager.StartSlowMotion();
     }
 
     private Vector3 CheckBounds(Vector3 pos, Vector3 botLeftBound, Vector3 topRightBound)
@@ -135,13 +147,18 @@ public class Player : MonoBehaviour
 
         canMove = true;
         speed = baseMoveSpeed;
+
+        // cross scene issues?
+        if (paperSpotlightAnimator == null)
+        {
+            paperSpotlightAnimator = Instantiate(paperSpotlightPrefab).GetComponent<Animator>();
+        }
     }
 
 
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("collided with " + collision.tag);
         if (collision.tag == "Paper")
         {
             SetPaper(true);

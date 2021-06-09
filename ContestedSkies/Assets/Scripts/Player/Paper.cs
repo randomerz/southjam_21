@@ -5,6 +5,7 @@ using UnityEngine;
 public class Paper : MonoBehaviour
 {
     public AnimationCurve paperDistCurve;
+    public Collider2D myCollider;
     private float timeAlive;
     private Vector3 origPos;
     private Vector3 targetPos;
@@ -21,11 +22,13 @@ public class Paper : MonoBehaviour
 
         if (timeAlive < 0.5f)
         {
+            myCollider.enabled = false;
             float dp = paperDistCurve.Evaluate(timeAlive);
             transform.position = (dp * targetPos) + ((1 - dp) * origPos);
         }
         else
         {
+            myCollider.enabled = true;
             transform.position = targetPos;
         }
     }
