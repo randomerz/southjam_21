@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: WarLandSpriteAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 0
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 0
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: 7b3d1795c68c7934186592775a14875d, type: 3}
+    totalSpriteSurfaceArea: 896
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 3679851468205507105, guid: 7b3d1795c68c7934186592775a14875d, type: 3}
+  - {fileID: -4175602310803706473, guid: 7b3d1795c68c7934186592775a14875d, type: 3}
+  - {fileID: 2641022154731945990, guid: 7b3d1795c68c7934186592775a14875d, type: 3}
+  - {fileID: 307403575329196556, guid: 7b3d1795c68c7934186592775a14875d, type: 3}
+  - {fileID: 2458035607597708770, guid: 7b3d1795c68c7934186592775a14875d, type: 3}
+  - {fileID: 2468260212850403342, guid: 7b3d1795c68c7934186592775a14875d, type: 3}
+  - {fileID: 2243737582986994594, guid: 7b3d1795c68c7934186592775a14875d, type: 3}
+  - {fileID: 7614653475347377387, guid: 7b3d1795c68c7934186592775a14875d, type: 3}
+  - {fileID: 8769640712338988222, guid: 7b3d1795c68c7934186592775a14875d, type: 3}
+  - {fileID: 8675127638935228922, guid: 7b3d1795c68c7934186592775a14875d, type: 3}
+  - {fileID: -6896197127607161484, guid: 7b3d1795c68c7934186592775a14875d, type: 3}
+  - {fileID: -4496468370348754270, guid: 7b3d1795c68c7934186592775a14875d, type: 3}
+  - {fileID: -5320928290230328210, guid: 7b3d1795c68c7934186592775a14875d, type: 3}
+  - {fileID: -8241710614016791603, guid: 7b3d1795c68c7934186592775a14875d, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - War_Tileset_9
+  - War_Tileset_8
+  - War_Tileset_7
+  - War_Tileset_6
+  - War_Tileset_5
+  - War_Tileset_4
+  - War_Tileset_3
+  - War_Tileset_2
+  - War_Tileset_1
+  - War_Tileset_0
+  - War_Tileset_12
+  - War_Tileset_13
+  - War_Tileset_10
+  - War_Tileset_11
+  m_RenderDataMap: {}
+  m_Tag: WarLandSpriteAtlas
+  m_IsVariant: 0
