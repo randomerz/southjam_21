@@ -7,6 +7,8 @@ public class EnemyController : MonoBehaviour
 {
     private bool canAttack = true;
     public GameObject projectile;
+
+    public IEMovement enemyMovement;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +21,10 @@ public class EnemyController : MonoBehaviour
         if (canAttack)
         {
             Shoot();
+        }
+        if (enemyMovement != null)
+        {
+            enemyMovement.Move();
         }
     }
 
