@@ -5,7 +5,7 @@ using UnityEngine;
 // Creates the material when needed
 //   works when you put on camera obj
 [ExecuteInEditMode]
-public class PaperEffect : MonoBehaviour
+public class BadShaderEffect : MonoBehaviour
 {
     [Range(0f, 1f)]
     public float intensity;
