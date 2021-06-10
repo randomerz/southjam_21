@@ -9,6 +9,10 @@ public class PaperTimer : MonoBehaviour
 
     private bool isActive = false;
 
+    // audio
+    private int currentBeep;
+    private float timeBetweenBeep = 0.75f;
+
     [Header("References")]
     public GameObject player;
     private GameObject paper;
@@ -25,14 +29,28 @@ public class PaperTimer : MonoBehaviour
         {
             currentTime += Time.deltaTime;
 
+            CheckBeep();
+
             if (paperSpotlight != null)
                 paperSpotlight.transform.position = paper.transform.position;
 
-            Debug.Log(currentTime);
+            //Debug.Log(currentTime);
             if (currentTime >= timeLimit)
             {
                 Debug.Log("Game over!");
+                GameHandler.GameOver();
+                SetActive(false);
             }
+        }
+    }
+
+    private void CheckBeep()
+    {
+        float nextBeepTime = timeLimit - ((3 - currentBeep) * timeBetweenBeep);
+        if (currentTime > nextBeepTime)
+        {
+            AudioManager.Play("Paper Beep " + (currentBeep + 1));
+            currentBeep += 1;
         }
     }
 
@@ -43,6 +61,7 @@ public class PaperTimer : MonoBehaviour
         {
             isActive = true;
             currentTime = 0;
+            currentBeep = 0;
         }
         else if (!value)
         {

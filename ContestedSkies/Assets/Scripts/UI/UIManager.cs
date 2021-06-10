@@ -1,26 +1,33 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
-public class PauseMenu: MonoBehaviour
+public class UIManager: MonoBehaviour
 {
-    public bool isGamePaused = false;
+    public bool isGamePaused;
+    public bool isGameOver;
 
     public GameObject pausePanel;
     public Slider volumeSlider;
-
-    public static float volume = 0.5f; // range [0..1]
+    public GameObject gameOverPanel;
+    public TextMeshProUGUI timeText;
+    
     private float oldTimeScale = 1f;
 
     private void Awake()
     {
-        volumeSlider.value = volume;
+        volumeSlider.value = AudioManager.GetVolume();
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            if (isGameOver)
+            {
+                return;
+            }
             if (isGamePaused)
             {
                 ResumeGame();
@@ -35,6 +42,7 @@ public class PauseMenu: MonoBehaviour
     public void ResumeGame()
     {
         pausePanel.SetActive(false);
+        gameOverPanel.SetActive(false);
         Time.timeScale = oldTimeScale;
         isGamePaused = false;
     }
@@ -47,9 +55,27 @@ public class PauseMenu: MonoBehaviour
         isGamePaused = true;
     }
 
+    public void OpenGameOver(float secondsAlive)
+    {
+        gameOverPanel.SetActive(true);
+        oldTimeScale = Time.timeScale;
+        Time.timeScale = 0f;
+        isGameOver = true;
+
+        int mins = (int)(secondsAlive) / 60;
+        int secs = (int)(secondsAlive) % 60;
+        timeText.text = mins + ":" + secs.ToString("00");
+    }
+
     public void UpdateVolume(float value)
     {
-        volume = value;
+        AudioManager.SetVolume(value);
+    }
+
+    public void LoadGameInit()
+    {
+        ResumeGame();
+        SceneManager.LoadScene("GameInit");
     }
 
     public void LoadGame()

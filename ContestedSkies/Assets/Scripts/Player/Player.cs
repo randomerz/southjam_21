@@ -5,6 +5,10 @@ public class Player : MonoBehaviour
     // Health
     public bool hasPaper = true;
 
+    private bool isInvuln;
+    public float invulnLength = 0.5f;
+    private float invulnTimeLeft;
+
 
     // Movement
     public PlayerControls playerControls;
@@ -13,14 +17,17 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float baseMoveSpeed;
     private float speed;
+    private Vector3 inputDir;
 
     [SerializeField]
     private Vector3 botLeftMoveBound;
     [SerializeField]
     private Vector3 topRightMoveBound;
+    
 
-    private bool canMove = true;
-    private Vector3 inputDir;
+    private bool isStunned;
+    public float stunLength = 0.25f;
+    private float stunTimeLeft;
 
     // Projectiles
     public GameObject projectile1;
@@ -79,8 +86,32 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        PlayerMovementHandler();
-        // if (canMove)
+        if (CanMove())
+        {
+            PlayerMovementHandler();
+        }
+        
+        if (isInvuln)
+        {
+            invulnTimeLeft -= Time.deltaTime;
+            if (invulnTimeLeft <= 0)
+            {
+                invulnTimeLeft = 0;
+                isInvuln = false;
+            }
+        }
+
+        if (isStunned)
+        {
+            stunTimeLeft -= Time.deltaTime;
+            if (stunTimeLeft <= 0)
+            {
+                stunTimeLeft = 0;
+                isStunned = false;
+            }
+        }
+
+        // if (CanMove())
         // {
         //     Vector3 nextPos = transform.position + inputDir * speed * Time.deltaTime;
 
@@ -95,13 +126,38 @@ public class Player : MonoBehaviour
         Vector2 moveInput = playerControls.Player.Move.ReadValue<Vector2>();
         rb.velocity = new Vector2(moveInput.x * baseMoveSpeed, moveInput.y * baseMoveSpeed);
     }
+    private bool CanMove()
+    {
+        return !isStunned;
+    }
 
     private void TakeDamage()
     {
+        if (isInvuln)
+        {
+            return;
+        }
+
+        AudioManager.Play("Player Damaged");
+
+        CameraShake.Shake(0.25f, 1);
+
+        isInvuln = true;
+        invulnTimeLeft = invulnLength;
+        StunSelf();
+
         if (hasPaper)
         {
             SetPaper(false);
         }
+    }
+
+    private void StunSelf()
+    {
+        AudioManager.Play("Stun");
+
+        isStunned = true;
+        stunTimeLeft = stunLength;
     }
 
     private void SetPaper(bool value)
@@ -118,6 +174,8 @@ public class Player : MonoBehaviour
         else if (!hasPaper && value)
         {
             hasPaper = true;
+
+            AudioManager.Play("Paper Pickup");
 
             paperTimer.SetActive(false);
             playerSpotlightAnimator.SetBool("isOn", false);
@@ -179,12 +237,15 @@ public class Player : MonoBehaviour
         return pos;
     }
 
-    private void ResetPlayer()
+    public void ResetPlayer()
     {
         hasPaper = true;
+        isInvuln = false;
+        invulnTimeLeft = 0;
 
-        canMove = true;
         speed = baseMoveSpeed;
+        isStunned = false;
+        stunTimeLeft = 0;
 
         // cross scene issues?
         if (paperSpotlightAnimator == null)
