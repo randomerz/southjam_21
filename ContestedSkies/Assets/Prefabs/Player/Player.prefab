@@ -368,11 +368,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasPaper: 1
+  invulnLength: 0.5
   baseMoveSpeed: 15
   botLeftMoveBound: {x: -4.5, y: -4.5, z: 0}
   topRightMoveBound: {x: 4.5, y: 4.5, z: 0}
+  stunLength: 0.25
   projectile1: {fileID: 6474998187768824130, guid: d1d83cb2466f8bf4cb165680676b05cf, type: 3}
   projectile2: {fileID: 6474998187768824130, guid: d1d83cb2466f8bf4cb165680676b05cf, type: 3}
+  paper_scroll: {fileID: 2295303722002546498}
   paperPrefab: {fileID: 7371304548737829138, guid: c6a8d06e38c42a445af1d03be96144e7, type: 3}
   minPaperSpawnDist: 2
   botLeftPaperBound: {x: -4, y: 3.5, z: 0}

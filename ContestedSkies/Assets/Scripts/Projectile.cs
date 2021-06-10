@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    float speed = 30f;
-    Rigidbody2D rb;
+    public float speed = 10f;
+    public Rigidbody2D rb;
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
     }
 
-    void Start()
+    public void Start()
     {
         rb.velocity = transform.up * speed;
     }

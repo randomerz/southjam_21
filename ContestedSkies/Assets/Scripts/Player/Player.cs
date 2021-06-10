@@ -34,7 +34,7 @@ public class Player : MonoBehaviour
     public GameObject projectile2;
 
     // Paper
-
+    public GameObject paper_scroll; // visual indicator if you carry the paper or not
     public GameObject paperPrefab;
     public float minPaperSpawnDist;
     [SerializeField]
@@ -65,6 +65,7 @@ public class Player : MonoBehaviour
     }
     void Update()
     {
+        
         if (playerControls.Player.Fire1.triggered)
         {
             FireWeapon1();
@@ -166,7 +167,7 @@ public class Player : MonoBehaviour
         if (hasPaper && !value)
         {
             hasPaper = false;
-
+            paper_scroll.SetActive(false);
             SpawnPaper();
             paperTimer.SetActive(true);
         }
@@ -174,7 +175,7 @@ public class Player : MonoBehaviour
         else if (!hasPaper && value)
         {
             hasPaper = true;
-
+            paper_scroll.SetActive(true);
             AudioManager.Play("Paper Pickup");
 
             paperTimer.SetActive(false);
