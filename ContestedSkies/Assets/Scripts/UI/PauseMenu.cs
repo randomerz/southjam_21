@@ -1,16 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PauseMenu: MonoBehaviour
 {
-    public static bool isGamePaused = false;
+    public bool isGamePaused = false;
 
     public GameObject pausePanel;
+    public Slider volumeSlider;
 
-    public static float volume = 1f;
-    private float oldTimeScale = 1;
+    public static float volume = 0.5f; // range [0..1]
+    private float oldTimeScale = 1f;
+
+    private void Awake()
+    {
+        volumeSlider.value = volume;
+    }
 
     void Update()
     {
@@ -47,9 +52,16 @@ public class PauseMenu: MonoBehaviour
         volume = value;
     }
 
+    public void LoadGame()
+    {
+        ResumeGame();
+        SceneManager.LoadScene("Game");
+    }
+
     public void LoadMainMenu()
     {
-        SceneManager.LoadScene("StartMenu");
+        ResumeGame();
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void QuitGame()

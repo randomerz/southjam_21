@@ -12,6 +12,7 @@ public class PaperTimer : MonoBehaviour
     [Header("References")]
     public GameObject player;
     private GameObject paper;
+    private GameObject paperSpotlight;
 
     void Start()
     {
@@ -24,6 +25,10 @@ public class PaperTimer : MonoBehaviour
         {
             currentTime += Time.deltaTime;
 
+            if (paperSpotlight != null)
+                paperSpotlight.transform.position = paper.transform.position;
+
+            Debug.Log(currentTime);
             if (currentTime >= timeLimit)
             {
                 Debug.Log("Game over!");
@@ -46,8 +51,9 @@ public class PaperTimer : MonoBehaviour
         }
     }
 
-    public void SetPaper(GameObject paperObj)
+    public void SetPaper(GameObject paperObj, GameObject paperSpotlightObj=null)
     {
         paper = paperObj;
+        paperSpotlight = paperSpotlightObj;
     }
 }
