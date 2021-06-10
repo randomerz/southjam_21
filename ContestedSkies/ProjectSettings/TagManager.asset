@@ -7,6 +7,7 @@ TagManager:
   - Paper
   - Enemy
   - Bullet
+  - EnemyBullet
   layers:
   - Default
   - TransparentFX
@@ -14,10 +15,10 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Enemy
+  - Interactable
+  - Obstacle
   - 
   - 
   - 
@@ -43,4 +44,22 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 2483409917
+    locked: 0
+  - name: Midground
+    uniqueID: 2620827121
+    locked: 0
+  - name: Obstacles
+    uniqueID: 1907488297
+    locked: 0
+  - name: Player
+    uniqueID: 457100859
+    locked: 0
+  - name: Hazards
+    uniqueID: 553517295
+    locked: 0
+  - name: Foreground
+    uniqueID: 1695601987
     locked: 0

@@ -11,6 +11,9 @@ public class Player : MonoBehaviour
 
 
     // Movement
+    public PlayerControls playerControls;
+    private Rigidbody2D rb;
+
     [SerializeField]
     private float baseMoveSpeed;
     private float speed;
@@ -26,9 +29,12 @@ public class Player : MonoBehaviour
     public float stunLength = 0.25f;
     private float stunTimeLeft;
 
+    // Projectiles
+    public GameObject projectile1;
+    public GameObject projectile2;
 
     // Paper
-
+    public GameObject paper_scroll; // visual indicator if you carry the paper or not
     public GameObject paperPrefab;
     public float minPaperSpawnDist;
     [SerializeField]
@@ -44,16 +50,48 @@ public class Player : MonoBehaviour
 
     void Awake()
     {
+        playerControls = new PlayerControls();
+        rb = GetComponent<Rigidbody2D>();
         ResetPlayer();
     }
 
+    void OnEnable()
+    {
+        playerControls.Enable();
+    }
+    void OnDisable()
+    {
+        playerControls.Disable();
+    }
     void Update()
     {
-        inputDir = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        
+        if (playerControls.Player.Fire1.triggered)
+        {
+            FireWeapon1();
+        } else if (playerControls.Player.Fire2.triggered)
+        {
+            FireWeapon2();
+        }
+    }
+
+    private void FireWeapon2()
+    {
+        Instantiate(projectile1, this.transform.position, Quaternion.identity);
+    }
+
+    private void FireWeapon1()
+    {
+        Instantiate(projectile2, this.transform.position, Quaternion.identity);
     }
 
     private void FixedUpdate()
     {
+        if (CanMove())
+        {
+            PlayerMovementHandler();
+        }
+        
         if (isInvuln)
         {
             invulnTimeLeft -= Time.deltaTime;
@@ -74,16 +112,21 @@ public class Player : MonoBehaviour
             }
         }
 
-        if (CanMove())
-        {
-            Vector3 nextPos = transform.position + inputDir * speed * Time.deltaTime;
+        // if (CanMove())
+        // {
+        //     Vector3 nextPos = transform.position + inputDir * speed * Time.deltaTime;
 
-            nextPos = CheckBounds(nextPos, botLeftMoveBound, topRightMoveBound);
+        //     nextPos = CheckBounds(nextPos, botLeftMoveBound, topRightMoveBound);
 
-            transform.position = nextPos;
-        }
+        //     transform.position = nextPos;
+        // }
     }
 
+    public void PlayerMovementHandler()
+    {
+        Vector2 moveInput = playerControls.Player.Move.ReadValue<Vector2>();
+        rb.velocity = new Vector2(moveInput.x * baseMoveSpeed, moveInput.y * baseMoveSpeed);
+    }
     private bool CanMove()
     {
         return !isStunned;
@@ -124,7 +167,7 @@ public class Player : MonoBehaviour
         if (hasPaper && !value)
         {
             hasPaper = false;
-
+            paper_scroll.SetActive(false);
             SpawnPaper();
             paperTimer.SetActive(true);
         }
@@ -132,7 +175,7 @@ public class Player : MonoBehaviour
         else if (!hasPaper && value)
         {
             hasPaper = true;
-
+            paper_scroll.SetActive(true);
             AudioManager.Play("Paper Pickup");
 
             paperTimer.SetActive(false);
