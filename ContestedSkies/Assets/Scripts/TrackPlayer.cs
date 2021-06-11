@@ -21,7 +21,6 @@ public class TrackPlayer : MonoBehaviour
     {
         Vector2 player_dir = new Vector2(player.transform.position.x - this.transform.position.x, player.transform.position.y - this.transform.position.y);
         player_dir.Normalize();
-        Debug.Log(Vector2.Dot(Vector2.up,player_dir));
         this.gameObject.transform.rotation = Quaternion.Euler(this.gameObject.transform.rotation.x, this.gameObject.transform.rotation.y, 
         Vector2.Dot(Vector2.up,player_dir) >= 0 ? Vector2.Angle(default_dir,player_dir) : -Vector2.Angle(default_dir,player_dir));
     }

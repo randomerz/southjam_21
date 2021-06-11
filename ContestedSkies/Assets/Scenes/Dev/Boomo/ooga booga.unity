@@ -610,7 +610,7 @@ MonoBehaviour:
   anchorTransform: {fileID: 972128330}
   R: 1
   X: 1
-  C: 1.57
+  C: 2
 --- !u!114 &1876553115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -623,6 +623,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 177c37204202fce45b648607de518fa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vision_rad: 7
   projectile: {fileID: 6981282364524712874, guid: c80a9a2673498a0458fea89cc07abc49, type: 3}
   enemyMovement: {fileID: 1876553114}
 --- !u!1 &2108121327
