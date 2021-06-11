@@ -1,3 +1,6 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -5,7 +8,10 @@ public class Player : MonoBehaviour
     // Health
     public bool hasPaper = true;
 
-    private bool isInvuln;
+    public bool isInvuln;
+    private bool isDodging;
+    private bool canDodge;
+    private bool canFire;
     public float invulnLength = 0.5f;
     private float invulnTimeLeft;
 
@@ -56,6 +62,8 @@ public class Player : MonoBehaviour
         playerControls = new PlayerControls();
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        canFire = true;
+        canDodge = true;
         ResetPlayer();
     }
 
@@ -70,21 +78,57 @@ public class Player : MonoBehaviour
     void Update()
     {
         transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -7f, 7f), transform.position.z);
-        if (playerControls.Player.Fire1.triggered)
+        if (playerControls.Player.Dodge.triggered && canDodge)
+        {
+            Dodge();
+        }
+        if (playerControls.Player.Fire1.triggered && canFire)
         {
             FireWeapon1();
-        } else if (playerControls.Player.Fire2.triggered)
+        } else if (playerControls.Player.Fire2.triggered && canFire)
         {
             FireWeapon2();
         }
+    }
+
+    private void Dodge()
+    {
+        anim.Play("pigun_dodge");
+        isDodging = true;
+        isInvuln = true;
+        canDodge = false;
+    }
+
+    public void EndIFrame()
+    {
+        isDodging = false;
+        isInvuln = false;
+        StartCoroutine(DodgeCooldown());
+    }
+
+    IEnumerator DodgeCooldown()
+    {
+        yield return new WaitForSeconds(0.1f);
+        canDodge = true;
+    }
+
+    IEnumerator FireCooldown(float time)
+    {
+        yield return new WaitForSeconds(time);
+        canFire = true;
     }
 
     private void FireWeapon2()
     {
         AudioManager.Play("Player Shoot");
 
-        Instantiate(projectile1, this.transform.position, Quaternion.identity);
+        for (int i = 0; i < 15; i++)
+        {
+            Instantiate(projectile1, this.transform.position, Quaternion.Euler(0f,0f,i * 360/15));
+        }
+        
         anim.Play("pigun_fire");
+        StartCoroutine(FireCooldown(0.5f));
     }
 
     private void FireWeapon1()
@@ -93,6 +137,7 @@ public class Player : MonoBehaviour
 
         Instantiate(projectile2, this.transform.position, Quaternion.identity);
         anim.Play("pigun_fire");
+        StartCoroutine(FireCooldown(0.1f));
     }
 
     private void FixedUpdate()
@@ -102,7 +147,7 @@ public class Player : MonoBehaviour
             PlayerMovementHandler();
         }
         
-        if (isInvuln)
+        if (isInvuln && !isDodging)
         {
             invulnTimeLeft -= Time.deltaTime;
             if (invulnTimeLeft <= 0)
@@ -204,14 +249,14 @@ public class Player : MonoBehaviour
 
     private void SpawnPaper()
     {
-        Vector3 randPos = new Vector3(Random.Range(botLeftPaperBound.x, topRightPaperBound.x),
-                                      Random.Range(botLeftPaperBound.y, topRightPaperBound.y));
+        Vector3 randPos = new Vector3(UnityEngine.Random.Range(botLeftPaperBound.x, topRightPaperBound.x),
+                                      UnityEngine.Random.Range(botLeftPaperBound.y, topRightPaperBound.y));
 
         int c = 0;
         while ((randPos - transform.position).magnitude < minPaperSpawnDist && c < 100000)
         {
-            randPos = new Vector3(Random.Range(botLeftPaperBound.x, topRightPaperBound.x),
-                                  Random.Range(botLeftPaperBound.y, topRightPaperBound.y));
+            randPos = new Vector3(UnityEngine.Random.Range(botLeftPaperBound.x, topRightPaperBound.x),
+                                  UnityEngine.Random.Range(botLeftPaperBound.y, topRightPaperBound.y));
             c += 1;
         }
         if (c == 100000)
