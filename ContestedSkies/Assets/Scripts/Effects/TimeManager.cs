@@ -26,6 +26,8 @@ public class TimeManager : MonoBehaviour
         StopAllCoroutines();
         Time.timeScale = instance.slowdownFactor;
         Time.fixedDeltaTime = Time.timeScale * 0.02f;
+
+        AudioManager.SetPitch(slowdownFactor);
     }
 
     public static void ResumeTimeSmooth()
@@ -41,6 +43,8 @@ public class TimeManager : MonoBehaviour
             yield return null;
         }
         Time.timeScale = 1;
+
+        AudioManager.SetPitch(1);
     }
 
     public static void Restart()

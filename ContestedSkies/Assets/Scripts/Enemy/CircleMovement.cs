@@ -18,7 +18,7 @@ public class CircleMovement : IEMovement
 
     void Awake()
     {
-        basePos = transform.position;
+        basePos = transform.position - anchorTransform.position;
         t = Time.time;
     }
     
@@ -30,7 +30,7 @@ public class CircleMovement : IEMovement
         t += Time.deltaTime;
         offset = new Vector3(R * Mathf.Cos(X * (t + C)), R * Mathf.Sin(X * (t + C)));
 
-        transform.position = basePos + offset;
+        transform.position = anchorTransform.position + basePos + offset;
     }
 
     private void OnDrawGizmos()

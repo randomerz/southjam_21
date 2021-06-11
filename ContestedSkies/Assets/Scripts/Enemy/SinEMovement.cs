@@ -22,7 +22,7 @@ public class SinEMovement : IEMovement
 
     void Awake()
     {
-        basePos = transform.position;
+        basePos = transform.position - anchorTransform.position;
         t = Time.time;
     }
     
@@ -42,7 +42,7 @@ public class SinEMovement : IEMovement
             offset = new Vector3(0, y);
         }
 
-        transform.position = basePos + offset;
+        transform.position = anchorTransform.position + basePos + offset;
     }
 
     private void OnDrawGizmos()

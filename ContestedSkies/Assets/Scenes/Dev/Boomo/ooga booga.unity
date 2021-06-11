@@ -607,6 +607,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canMove: 1
+  anchorTransform: {fileID: 972128330}
   R: 1
   X: 1
   C: 1.57
@@ -798,6 +799,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4915853172502173188, guid: 4cfc0ec2425282942a72f7c686b25b67, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7929873280933545262, guid: 4cfc0ec2425282942a72f7c686b25b67, type: 3}
       propertyPath: m_RootOrder
       value: 3
