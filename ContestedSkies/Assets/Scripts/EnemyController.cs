@@ -8,6 +8,8 @@ public class EnemyController : MonoBehaviour
     public float vision_rad = 7f;
     private bool canAttack;
     public GameObject projectile;
+
+    public IEMovement enemyMovement;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +27,10 @@ public class EnemyController : MonoBehaviour
                 Player player = item.GetComponent<Player>();
                 if (player) {Shoot();}
             }
+        }
+        if (enemyMovement != null)
+        {
+            enemyMovement.Move();
         }
     }
 

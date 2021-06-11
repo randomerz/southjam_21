@@ -21,7 +21,7 @@ public class GameHandler : MonoBehaviour
         {
             UIManager = GameObject.Find("UICanvas").GetComponent<UIManager>();
         }
-        StartGame();
+        //StartGame();
     }
 
     void Update()

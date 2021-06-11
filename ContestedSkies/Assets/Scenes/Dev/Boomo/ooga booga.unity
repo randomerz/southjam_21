@@ -494,6 +494,8 @@ GameObject:
   - component: {fileID: 1876553113}
   - component: {fileID: 1876553112}
   - component: {fileID: 1876553111}
+  - component: {fileID: 1876553115}
+  - component: {fileID: 1876553114}
   m_Layer: 0
   m_Name: Damage
   m_TagString: Enemy
@@ -592,6 +594,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1876553114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1876553110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7d917cc707d5a84baa4636428f69778, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canMove: 1
+  R: 1
+  X: 1
+  C: 1.57
+--- !u!114 &1876553115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1876553110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 177c37204202fce45b648607de518fa3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectile: {fileID: 6981282364524712874, guid: c80a9a2673498a0458fea89cc07abc49, type: 3}
+  enemyMovement: {fileID: 1876553114}
 --- !u!1 &2108121327
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections;
 
 public class UIManager: MonoBehaviour
 {
@@ -12,7 +13,9 @@ public class UIManager: MonoBehaviour
     public Slider volumeSlider;
     public GameObject gameOverPanel;
     public TextMeshProUGUI timeText;
-    
+
+    public Animator mainMenuAnimator;
+
     private float oldTimeScale = 1f;
 
     private void Awake()
@@ -70,6 +73,20 @@ public class UIManager: MonoBehaviour
     public void UpdateVolume(float value)
     {
         AudioManager.SetVolume(value);
+    }
+
+    public void StartMainMenuTransitionOut()
+    {
+        StartCoroutine(MainMenuTransitionOut());
+    }
+
+    private IEnumerator MainMenuTransitionOut()
+    {
+        mainMenuAnimator.SetBool("shouldExit", true);
+
+        yield return new WaitForSeconds(2);
+
+        LoadGameInit();
     }
 
     public void LoadGameInit()
