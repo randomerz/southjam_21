@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     // Movement
     public PlayerControls playerControls;
     private Rigidbody2D rb;
+    private Animator anim;
 
     [SerializeField]
     private float baseMoveSpeed;
@@ -52,6 +53,7 @@ public class Player : MonoBehaviour
     {
         playerControls = new PlayerControls();
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
         ResetPlayer();
     }
 
@@ -65,7 +67,7 @@ public class Player : MonoBehaviour
     }
     void Update()
     {
-        
+        transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -7f, 7f), transform.position.z);
         if (playerControls.Player.Fire1.triggered)
         {
             FireWeapon1();
@@ -78,11 +80,13 @@ public class Player : MonoBehaviour
     private void FireWeapon2()
     {
         Instantiate(projectile1, this.transform.position, Quaternion.identity);
+        anim.Play("pigun_fire");
     }
 
     private void FireWeapon1()
     {
         Instantiate(projectile2, this.transform.position, Quaternion.identity);
+        anim.Play("pigun_fire");
     }
 
     private void FixedUpdate()
