@@ -102,6 +102,21 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    public static void SetPitch(float value)
+    {
+        value = Mathf.Clamp(value, 0.3f, 3f);
+        //volume = value;
+
+        if (_sounds == null)
+            return;
+        foreach (Sound s in _sounds)
+        {
+            if (s == null || s.source == null)
+                continue;
+            s.source.pitch = s.pitch * value;
+        }
+    }
+
     public static float GetVolume()
     {
         return volume;

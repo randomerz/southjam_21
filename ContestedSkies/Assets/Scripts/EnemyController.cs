@@ -30,6 +30,7 @@ public class EnemyController : MonoBehaviour
 
     void Shoot()
     {
+        AudioManager.Play("Enemy Shoot");
         Instantiate(projectile,this.transform.position, this.transform.rotation);
         StartCoroutine(DelayShot());
     }

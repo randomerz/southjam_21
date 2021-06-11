@@ -23,8 +23,9 @@ public class Player : MonoBehaviour
     private Vector3 botLeftMoveBound;
     [SerializeField]
     private Vector3 topRightMoveBound;
-    
 
+
+    public GameObject stunEffectObj; // stun visual indicator
     private bool isStunned;
     public float stunLength = 0.25f;
     private float stunTimeLeft;
@@ -47,6 +48,7 @@ public class Player : MonoBehaviour
     public Animator playerSpotlightAnimator;
     public GameObject paperSpotlightPrefab;
     private Animator paperSpotlightAnimator;
+    public ColorStrobe colorStrobe;
 
     void Awake()
     {
@@ -77,11 +79,15 @@ public class Player : MonoBehaviour
 
     private void FireWeapon2()
     {
+        AudioManager.Play("Player Shoot");
+
         Instantiate(projectile1, this.transform.position, Quaternion.identity);
     }
 
     private void FireWeapon1()
     {
+        AudioManager.Play("Player Shoot");
+
         Instantiate(projectile2, this.transform.position, Quaternion.identity);
     }
 
@@ -107,6 +113,8 @@ public class Player : MonoBehaviour
             stunTimeLeft -= Time.deltaTime;
             if (stunTimeLeft <= 0)
             {
+                stunEffectObj.SetActive(false);
+
                 stunTimeLeft = 0;
                 isStunned = false;
             }
@@ -142,6 +150,8 @@ public class Player : MonoBehaviour
         AudioManager.Play("Player Damaged");
 
         CameraShake.Shake(0.25f, 1);
+        //colorStrobe.StrobeWhite((int)(invulnLength / 0.25f));
+        colorStrobe.StrobeAlpha((int)(invulnLength / 0.25f), 0.5f);
 
         isInvuln = true;
         invulnTimeLeft = invulnLength;
@@ -156,6 +166,7 @@ public class Player : MonoBehaviour
     private void StunSelf()
     {
         AudioManager.Play("Stun");
+        stunEffectObj.SetActive(true);
 
         isStunned = true;
         stunTimeLeft = stunLength;
