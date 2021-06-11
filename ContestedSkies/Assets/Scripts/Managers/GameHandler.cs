@@ -8,6 +8,9 @@ public class GameHandler : MonoBehaviour
     public UIManager UIManager; // should be a singleton probably
     public Player player;
 
+    private static float totalGameStartTime;
+    private float currentGameStartTime;
+
     private static GameHandler instance;
 
     void Awake()
@@ -37,8 +40,26 @@ public class GameHandler : MonoBehaviour
     private void StartGameHelper()
     {
         AudioManager.Play("Music"); // probably move this somewhere else
+        currentGameStartTime = Time.time;
 
         player.ResetPlayer();
+    }
+
+    // for time since you hit play
+    public static void SetTotalStartingTime()
+    {
+        totalGameStartTime = Time.unscaledTime;
+    }
+
+    public static float GetTotalStartingTime()
+    {
+        return Time.unscaledDeltaTime - totalGameStartTime;
+    }
+
+    // for current run
+    public static float GetCurrentStartingTime()
+    {
+        return Time.time - instance.currentGameStartTime;
     }
 
     public static void GameOver()
@@ -49,6 +70,6 @@ public class GameHandler : MonoBehaviour
     private void GameOverHelper()
     {
         AudioManager.Play("Player Death");
-        UIManager.OpenGameOver(69);
+        UIManager.OpenGameOver(GetCurrentStartingTime());
     }
 }

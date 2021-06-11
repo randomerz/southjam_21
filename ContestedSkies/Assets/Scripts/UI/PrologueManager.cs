@@ -107,6 +107,7 @@ public class PrologueManager : MonoBehaviour
         }
 
         // change scene
+        GameHandler.SetTotalStartingTime();
         SceneManager.LoadScene("Game");
     }
 }
