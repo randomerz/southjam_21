@@ -97,10 +97,12 @@ public class Player : MonoBehaviour
         isDodging = true;
         isInvuln = true;
         canDodge = false;
+        StartCoroutine(IFrameStart());
     }
 
-    public void EndIFrame()
+    IEnumerator IFrameStart()
     {
+        yield return new WaitForSeconds(1f);
         isDodging = false;
         isInvuln = false;
         StartCoroutine(DodgeCooldown());
@@ -120,6 +122,7 @@ public class Player : MonoBehaviour
 
     private void FireWeapon2()
     {
+        canFire = false;
         AudioManager.Play("Player Shoot");
 
         for (int i = 0; i < 15; i++)
@@ -133,6 +136,7 @@ public class Player : MonoBehaviour
 
     private void FireWeapon1()
     {
+        canFire = false;
         AudioManager.Play("Player Shoot");
 
         Instantiate(projectile2, this.transform.position, Quaternion.identity);

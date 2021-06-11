@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour
+public class Turret : MonoBehaviour
 {
     public float vision_rad = 7f;
     private bool canAttack;
