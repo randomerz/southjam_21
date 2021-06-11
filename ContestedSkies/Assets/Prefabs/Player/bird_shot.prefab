@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6474998187768824129}
   - component: {fileID: 6474998187768824190}
   - component: {fileID: 8255082118549562972}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: bird_shot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,3 +145,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 30
+  rb: {fileID: 0}

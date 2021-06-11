@@ -48,4 +48,14 @@ public class Turret : MonoBehaviour
         canAttack = true;
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.magenta;
+
+        Vector3 p0 = transform.position + new Vector3(vision_rad * Mathf.Cos(1), vision_rad * Mathf.Sin(1));
+
+        Gizmos.DrawSphere(p0, 0.1f);
+        Gizmos.DrawWireSphere(transform.position, vision_rad);
+    }
+
 }

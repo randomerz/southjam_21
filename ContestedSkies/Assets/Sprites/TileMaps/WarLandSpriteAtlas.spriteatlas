@@ -44,7 +44,7 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 2800000, guid: 7b3d1795c68c7934186592775a14875d, type: 3}
-    totalSpriteSurfaceArea: 896
+    totalSpriteSurfaceArea: 1152
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -64,6 +64,10 @@ SpriteAtlas:
   - {fileID: -4496468370348754270, guid: 7b3d1795c68c7934186592775a14875d, type: 3}
   - {fileID: -5320928290230328210, guid: 7b3d1795c68c7934186592775a14875d, type: 3}
   - {fileID: -8241710614016791603, guid: 7b3d1795c68c7934186592775a14875d, type: 3}
+  - {fileID: -687431803912582436, guid: 7b3d1795c68c7934186592775a14875d, type: 3}
+  - {fileID: -3721372569626865429, guid: 7b3d1795c68c7934186592775a14875d, type: 3}
+  - {fileID: 176362938381126239, guid: 7b3d1795c68c7934186592775a14875d, type: 3}
+  - {fileID: -2942499074145841669, guid: 7b3d1795c68c7934186592775a14875d, type: 3}
   m_PackedSpriteNamesToIndex:
   - War_Tileset_9
   - War_Tileset_8
@@ -79,6 +83,10 @@ SpriteAtlas:
   - War_Tileset_13
   - War_Tileset_10
   - War_Tileset_11
+  - War_Tileset_16
+  - War_Tileset_17
+  - War_Tileset_14
+  - War_Tileset_15
   m_RenderDataMap: {}
   m_Tag: WarLandSpriteAtlas
   m_IsVariant: 0

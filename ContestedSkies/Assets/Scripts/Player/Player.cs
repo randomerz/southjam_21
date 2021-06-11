@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.InputSystem.InputAction;
 
 public class Player : MonoBehaviour
 {
@@ -36,6 +37,7 @@ public class Player : MonoBehaviour
     private bool isStunned;
     public float stunLength = 0.25f;
     private float stunTimeLeft;
+    private bool held = false;
 
     // Projectiles
     public GameObject projectile1;
@@ -64,6 +66,10 @@ public class Player : MonoBehaviour
         anim = GetComponent<Animator>();
         canFire = true;
         canDodge = true;
+
+        playerControls.Player.Fire1.performed += ctx => held = true;
+        playerControls.Player.Fire1.canceled += ctx => held = false;
+
         ResetPlayer();
     }
 
@@ -82,7 +88,7 @@ public class Player : MonoBehaviour
         {
             Dodge();
         }
-        if (playerControls.Player.Fire1.triggered && canFire)
+        if (held && canFire)
         {
             FireWeapon1();
         } else if (playerControls.Player.Fire2.triggered && canFire)
@@ -118,12 +124,14 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         canFire = true;
+        
     }
 
     private void FireWeapon2()
     {
         canFire = false;
         AudioManager.Play("Player Shoot");
+        CameraShake.Shake(.1f,5);
 
         for (int i = 0; i < 15; i++)
         {
@@ -138,6 +146,7 @@ public class Player : MonoBehaviour
     {
         canFire = false;
         AudioManager.Play("Player Shoot");
+        CameraShake.Shake(.1f,2);
 
         Instantiate(projectile2, this.transform.position, Quaternion.identity);
         anim.Play("pigun_fire");
@@ -202,7 +211,7 @@ public class Player : MonoBehaviour
 
         AudioManager.Play("Player Damaged");
 
-        CameraShake.Shake(0.25f, 1);
+        CameraShake.Shake(0.25f, 5);
         //colorStrobe.StrobeWhite((int)(invulnLength / 0.25f));
         colorStrobe.StrobeAlpha((int)(invulnLength / 0.25f), 0.5f);
 
