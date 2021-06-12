@@ -15,6 +15,22 @@ public class Projectile : MonoBehaviour
     {
         rb.velocity = transform.up * speed;
     }
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.gameObject.layer == 9)
+        {
+            Destroy(gameObject);
+        }
+
+        EnemyController enemy = col.gameObject.GetComponent<EnemyController>();
+        if (enemy)
+        {
+            enemy.DamageEnemy(1);
+            Destroy(gameObject);
+        }
+        
+    }
     
     void OnBecameInvisible()
     {
